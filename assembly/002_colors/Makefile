@@ -1,4 +1,4 @@
-export PATH := /home/cpitrat/Perso/CPC/coding/install/bin:$(PATH)
+export PATH := $(PWD)/../../tools/install/bin:$(PATH)
 
 all:
 	pasmo colors.asm colors.bin

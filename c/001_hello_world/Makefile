@@ -1,5 +1,6 @@
 export PATH := $(PWD)/../../tools/install/bin:$(PATH)
 
+# TODO(ColinPitrat): This doesn't work yet. Find why ...
 all:
 	zcc +cpc -lndos -o hello.bin hello.c
 	iDSK hello.dsk -n
