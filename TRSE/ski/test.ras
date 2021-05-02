@@ -1,0 +1,75 @@
+program Test;
+@use "text"
+@use "input"
+
+var
+   gate_type = record
+      y, x1, x2 : byte;
+   end;
+   gates: array[8] of gate_type;
+   skier_x: byte;
+   ug: byte;
+
+procedure myTests();
+begin
+   skier_x := 8;
+   if (gates[ug].x1 <= skier_x and gates[ug].x2 > skier_x) then Text::Print("10 <= 8 < 14: TRUE\r\n")
+   else Text::Print("10 <= 8 < 14: FALSE\r\n");
+
+   skier_x := 10;
+   if (gates[ug].x1 <= skier_x and gates[ug].x2 > skier_x) then Text::Print("10 <= 10 < 14: TRUE\r\n")
+   else Text::Print("10 <= 10 < 14: FALSE\r\n");
+
+   skier_x := 12;
+   if (gates[ug].x1 <= skier_x and gates[ug].x2 > skier_x) then Text::Print("10 <= 12 < 14: TRUE\r\n")
+   else Text::Print("10 <= 12 < 14: FALSE\r\n");
+   
+   skier_x := 14;
+   if (gates[ug].x1 <= skier_x and gates[ug].x2 > skier_x) then Text::Print("10 <= 14 < 14: TRUE\r\n")
+   else Text::Print("10 <= 14 < 14: FALSE\r\n");
+
+   skier_x := 16;
+   if (gates[ug].x1 <= skier_x and gates[ug].x2 > skier_x) then Text::Print("10 <= 16 < 14: TRUE\r\n")
+   else Text::Print("10 <= 16 < 14: FALSE\r\n");   
+end;
+
+procedure moreTests();
+var
+   x1: byte = 10;
+begin	   
+   skier_x := 8;
+   if (x1 >= skier_x) then Text::Print("10 >= 8: TRUE\r\n")
+   else Text::Print("10 >= 8: FALSE\r\n");
+   
+   skier_x := 10;
+   if (x1 >= skier_x) then Text::Print("10 >= 10: TRUE\r\n")
+   else Text::Print("10 >= 10: FALSE\r\n");
+   
+   skier_x := 12;
+   if (x1 >= skier_x) then Text::Print("10 >= 12: TRUE\r\n")
+   else Text::Print("10 >= 12: FALSE\r\n");
+end;
+
+begin
+   ug := 2;
+   gates[ug].x1 := 10;
+   gates[ug].x2 := 14;
+
+   myTests();   
+   // moreTests();
+   /*
+   i1 := 10;
+   skier_x := 12;
+   if i1 < skier_x then Text::Print("10 < 12: TRUE\r\n")
+   else Text::Print("10 < 12: FALSE\r\n");
+   i1 := 10;
+   skier_x := 10;
+   if i1 < skier_x then Text::Print("10 < 10: TRUE\r\n")
+   else Text::Print("10 < 10: FALSE\r\n");
+   i1 := 12;
+   skier_x := 10;
+   if i1 < skier_x then Text::Print("12 < 10: TRUE\r\n")
+   else Text::Print("12 < 10: FALSE\r\n");
+   */
+   Input::WaitKey();
+end.

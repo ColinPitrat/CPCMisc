@@ -1,0 +1,196 @@
+program Tutorial1;
+@use "crtc"
+@use "format"   // TODO: For debug only
+@use "input"
+@use "text"     // TODO: For debug only
+@use "smallfloat"
+//@use "cpcfloat"
+
+var
+	const screen_width: byte = 160;
+	const screen_height: byte = 200;
+	const float_size: byte = 2;
+	min_x: array[float_size] of byte;
+	min_y: array[float_size] of byte;
+	max_x: array[float_size] of byte;
+	max_y: array[float_size] of byte;
+	modulus: array[float_size] of byte;
+	dx: array[float_size] of byte;
+	dy: array[float_size] of byte;
+	cx: array[float_size] of byte;
+	cy: array[float_size] of byte;
+	x: array[float_size] of byte;
+	y: array[float_size] of byte;
+	tmp: array[float_size] of byte;
+	tmp2: array[float_size] of byte;
+	zx: array[float_size] of byte;
+	zy: array[float_size] of byte;
+	screen_x_f: array[float_size] of byte;
+	screen_y_f: array[float_size] of byte;
+	four: array[float_size] of byte;
+	screen_width_f: array[float_size] of byte;
+	screen_height_f: array[float_size] of byte;
+	
+	screen_x: byte;
+	screen_y: byte;
+	col: byte;
+	i: byte;
+	debug: byte = 0;
+	
+	j: byte;   // TODO: For debug only
+	p: pointer;   // TODO: For debug only
+	s: array[9] of byte;
+
+// TODO: For debug only
+procedure PrintSmallFloat(dbg_f: pointer);
+begin
+		p := dbg_f;
+		for j := 0 to float_size  do
+		begin
+			Format::PaddedBinaryBtos(p^, #s);
+			Text::Print(#s);
+			Text::Print(" ");
+			p += 1;
+		end;
+end;
+
+// TODO: For debug only
+procedure DebugSmallFloat(name, dbg_ff: pointer);
+begin
+	if debug <> 0 then
+	begin
+		Text::Print(name);
+		Text::Print(": ");
+		PrintSmallFloat(dbg_ff);
+		Text::Print("\r\n");
+		Input::WaitKey();
+	end;
+end;
+
+begin
+	// Set 160x200 16-color mode
+	// TODO(ColinPitrat): Support other modes: needs the creation of Crtc::PutPixelMode[12]
+	Crtc::SetMode(0);
+	// Set black border
+	Crtc::SetBorder(0);
+	// A reasonably looking color palette
+	Crtc::SetInk(0, 0);
+	Crtc::SetInk(1, 1);
+	Crtc::SetInk(2, 1);
+	Crtc::SetInk(3, 4);
+	Crtc::SetInk(4, 4);
+	Crtc::SetInk(5, 5);
+	Crtc::SetInk(6, 5);
+	Crtc::SetInk(7, 8);
+	Crtc::SetInk(8, 8);
+	Crtc::SetInk(9, 17);
+	Crtc::SetInk(10, 17);
+	Crtc::SetInk(11, 24);
+	Crtc::SetInk(12, 24);
+	Crtc::SetInk(13, 25);
+	Crtc::SetInk(14, 25);
+	Crtc::SetInk(15, 0);
+	
+	// Ordered by monochrome chrominance
+	/*
+	Crtc::SetInk(0, 0);
+	Crtc::SetInk(1, 3);
+	Crtc::SetInk(2, 6);
+	Crtc::SetInk(3, 5);
+	Crtc::SetInk(4, 28);
+	Crtc::SetInk(5, 7);
+	Crtc::SetInk(6, 9);
+	Crtc::SetInk(7, 11);
+	Crtc::SetInk(8, 13);
+	Crtc::SetInk(9, 15);
+	Crtc::SetInk(10, 16);
+	Crtc::SetInk(11, 31);
+	Crtc::SetInk(12, 20);
+	Crtc::SetInk(13, 24);
+	Crtc::SetInk(14, 23);
+	Crtc::SetInk(15, 29);
+	*/
+	
+	// Initialize constants
+	SmallFloat::FromU8(#four, 4);
+	SmallFloat::FromU16(#screen_width_f, screen_width);
+	SmallFloat::FromU16(#screen_height_f, screen_height);
+
+	// Initialize boundaries
+	SmallFloat::FromString(#min_x, "-2");
+	SmallFloat::FromString(#min_y, "-1");
+	SmallFloat::FromString(#max_x, "1");
+	SmallFloat::FromString(#max_y, "1");
+	
+	SmallFloat::Substract(#dx, #max_x, #min_x);
+	SmallFloat::Substract(#dy, #max_y, #min_y);
+	
+	DebugSmallFloat("dx", #dx);
+	DebugSmallFloat("dy", #dy);
+	
+	/*
+	// Display the palette
+	for col := 0 to 16 do
+	begin
+		for screen_x := 10*col to 10*(col+1) do
+		begin
+			for screen_y := 0 to screen_height do
+			begin
+				Crtc::PutPixelMode0(screen_x, screen_y, col);
+			end;
+		end;
+	end;
+	*/
+	
+	for screen_x := 0 to screen_width do
+	begin
+		SmallFloat::FromU16(#screen_x_f, screen_x);
+		for screen_y := 0 to screen_height do
+		begin
+			if (screen_x = 0 and screen_y = 0) then
+				debug := 0
+			else
+				debug := 0;
+			SmallFloat::FromU8(#screen_y_f, screen_y);
+			// x := min_x + dx * screen_x / screen_width
+			SmallFloat::Multiply(#x, #dx, #screen_x_f);
+			SmallFloat::Divide(#tmp, #x, #screen_width_f);
+			SmallFloat::Add(#x, #tmp, #min_x);
+	 		SmallFloat::Assign(#cx, #x);
+	 		
+			// y := min_y + dy * screen_y / screen_height
+			SmallFloat::Multiply(#y, #dy, #screen_y_f);
+			SmallFloat::Divide(#tmp, #y, #screen_height_f);
+			SmallFloat::Add(#y, #tmp, #min_y);
+	 		SmallFloat::Assign(#cy, #y);
+
+			col := 15;
+			for i := 0 to 16 do
+			begin
+				SmallFloat::Multiply(#tmp, #x, #x);
+				SmallFloat::Multiply(#tmp2, #y, #y);
+				SmallFloat::Add(#modulus, #tmp, #tmp2);
+
+				// As soon as modulus is greater than 2, this is considered as diverging
+				if SmallFloat::Compare(#modulus, #four) = 1 then
+				begin
+  	 				col := i;
+				   break;
+				end;
+
+				// zx := x*x - y* y; 
+				SmallFloat::Substract(#zx, #tmp, #tmp2);
+				
+				// zy := 2*x*y;
+				SmallFloat::Multiply(#tmp, #x, #y);
+				SmallFloat::Add(#zy, #tmp, #tmp);
+ 				// x := zx + cx;
+ 				SmallFloat::Add(#x, #zx, #cx);
+ 				// y := zy + cy;
+ 				SmallFloat::Add(#y, #zy, #cy);
+			end;
+			Crtc::PutPixelMode0(screen_x, screen_y, col);
+		end;
+	end;
+	Input::WaitKey();
+end.

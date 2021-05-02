@@ -1,0 +1,94 @@
+program MyProgram;
+@use "format"
+@use "input"
+@use "smallfloat"
+@use "text"
+
+var  
+   i,j,k: byte;
+   negfirst, negsecond: byte;
+   sf: array[2] of byte;
+   sf1, sf2: array[2] of byte;
+   f: array[4] of byte;
+   ff: array[4] of byte;
+   s: array[9] of byte;
+   p: pointer;
+   
+   pf1, pf2, pf3: pointer;
+   
+   long_string: array[255] of byte;
+   
+   tmp_result: array[18] of byte;
+   
+   test_byte_str: array[4] of byte;
+   test_byte_expected, test_byte_value: byte;
+   pass_byte_expected, pass_byte_value: byte;
+   
+   print_p: pointer;
+   format_p: pointer;
+   test_i: byte;
+   test_rc, test_rc2: byte;
+   test_case, result, f1, f2: pointer;
+   test_result: array[18] of byte;
+   test_value, test_expected: pointer;
+   test_failure: byte;
+   f3: array[2] of byte;
+
+@include "test_core.inc"
+@include "test_construct.inc"
+@include "test_cmp.inc"
+@include "test_add.inc"
+@include "test_mul.inc"
+@include "test_div.inc"
+
+/*
+ TODO(ColinPitrat):
+  - Test FromString
+  - Test Substract
+*/
+procedure TestOneSmallFloatSubstract(i, j: global byte);
+begin
+	Format::Btos(i, #s);
+	Text::Print(#s);
+	Text::Print("-");
+	Format::Btos(j, #s);
+	Text::Print(#s);
+	Text::Print(":\r\n");
+	SmallFloat::FromU8(#sf1, i);
+	SmallFloat::FromU8(#sf2, j);
+	SmallFloat::Substract(#sf, #sf1, #sf2);
+	//Substract(#sf, #sf1, #sf2);
+	PrintSmallFloat(#sf1);
+	PrintSmallFloat(#sf2);
+	PrintSmallFloat(#sf);
+end;
+
+procedure TestSmallFloatSubstract();
+begin
+	TestOneSmallFloatSubstract(1,0);
+	TestOneSmallFloatSubstract(1,1);
+	TestOneSmallFloatSubstract(1,2);
+	TestOneSmallFloatSubstract(2,1);
+	TestOneSmallFloatSubstract(1,5);
+	TestOneSmallFloatSubstract(5,5);
+	Input::WaitKey();
+	TestOneSmallFloatSubstract(7,2);
+	TestOneSmallFloatSubstract(7,5);
+	TestOneSmallFloatSubstract(12,5);
+	TestOneSmallFloatSubstract(5,12);
+end;
+
+begin
+	if TestSmallFloatFromU8() <> 0 then Input::WaitKey();
+	if TestSmallFloatFromU16() <> 0 then Input::WaitKey();
+	if TestSmallFloatFromString() <> 0 then Input::WaitKey();
+	if TestSmallFloatNeg() <> 0 then Input::WaitKey();
+	if TestSmallFloatAssign() <> 0 then Input::WaitKey();
+	if TestSmallFloatAdd() <> 0 then Input::WaitKey();
+	if TestSmallFloatMul() <> 0 then Input::WaitKey();
+	if TestSmallFloatDiv() <> 0 then Input::WaitKey();
+	//TestSmallFloatSubstract();
+	if TestSmallFloatCompare() <> 0 then Input::WaitKey();
+	Text::Print("TESTS FINISHED");
+	Input::WaitKey();
+end.
