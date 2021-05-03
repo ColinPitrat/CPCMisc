@@ -44,6 +44,16 @@ git submodule init
 git submodule update
 rm src/config.h
 ./build.sh -i ${INSTALLDIR:?}
+cp bin/* ${INSTALLDIR:?}/bin/
+```
+
+### cap32
+
+```
+cd ${TOOLSDIR:?}
+git clone https://github.com/ColinPitrat/caprice32.git
+cd caprice32
+make DESTDIR=${INSTALLDIR:?} prefix="" install
 ```
 
 ### TRSE
