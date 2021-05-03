@@ -1,7 +1,7 @@
-//#include <stdio.h>
+#include <stdio.h>
 
 main()
 {
-  //printf("Hello world\n");
-  //fgetc_cons();
+  printf("Hello, world!\n");
+  fgetc_cons();
 }
