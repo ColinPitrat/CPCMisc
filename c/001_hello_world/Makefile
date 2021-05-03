@@ -1,6 +1,6 @@
 export PATH := $(PWD)/../../tools/install/bin:$(PATH)
 
-ORG_HEX:=6000
+ORG_HEX:=4000
 ORG_DEC:=`echo -e "ibase=16\n$(ORG_HEX)" | bc`
 
 all:
