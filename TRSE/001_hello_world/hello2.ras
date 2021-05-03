@@ -1,0 +1,78 @@
+program Hello2;
+@use "format"
+@use "input"
+@use "text"
+
+var
+  i: integer = 0;
+  b: byte = 0;
+  bstr: array[4] of byte;
+  istr: array[6] of byte;
+
+procedure TestItos(i: global integer);
+begin
+	Format::Itos(i, #istr);
+    text::Print(#istr);
+    text::Print(" ");
+end;
+
+procedure TestPaddedItos(i: global integer);
+begin
+	Format::PaddedItos(i, #istr);
+    text::Print(#istr);
+    text::Print(" ");
+end;
+
+procedure TestBtos(b: global byte);
+begin
+	Format::Btos(b, #bstr);
+    text::Print(#bstr);
+    text::Print(" ");
+end;
+
+procedure TestPaddedBtos(b: global byte);
+begin
+	Format::PaddedBtos(b, #bstr);
+    text::Print(#bstr);
+    text::Print(" ");
+end;
+
+begin
+	TestItos(0);
+	TestItos(1);
+	TestItos(9);
+	TestItos(10);
+	TestItos(42);
+	TestItos(1729);
+	TestItos(2048);
+	TestItos(60301);
+	text::Print("\r\n");
+	
+	TestPaddedItos(0);
+	TestPaddedItos(1);
+	TestPaddedItos(9);
+	TestPaddedItos(10);
+	TestPaddedItos(42);
+	TestPaddedItos(1729);
+	TestPaddedItos(2048);
+	TestPaddedItos(60301);
+	text::Print("\r\n");
+
+	TestBtos(0);
+	TestBtos(1);
+	TestBtos(9);
+	TestBtos(10);
+	TestBtos(42);
+	TestBtos(205);
+	text::Print("\r\n");
+	
+	TestPaddedBtos(0);
+	TestPaddedBtos(1);
+	TestPaddedBtos(9);
+	TestPaddedBtos(10);
+	TestPaddedBtos(42);
+	TestPaddedBtos(205);
+	text::Print("\r\n");
+
+	input::WaitKey();
+end.
