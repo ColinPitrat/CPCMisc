@@ -6,9 +6,9 @@ TXT_SET_ROW   EQU #BB72
 KM_WAIT_CHAR  EQU #BB06
 
 main:
-;call fill_screen_2
+call fill_screen_2
 ;call test_print_num
-call test_display_hl
+;call test_display_hl
 ret
 
 print_space:
