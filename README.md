@@ -2,6 +2,17 @@
 
 Various projects of coding for the Amstrad CPC
 
+## Content
+
+### basic/advanced
+
+Advanced (or contrived, or obfuscated) basic examples.
+
+### basic/sybex
+
+Jeux provenant du livre "Amstrad Jeux en Assembleur" d'Eric Ravis:
+https://www.cpcwiki.eu/index.php/Amstrad_Jeux_en_Assembleur
+
 ## Installing tools
 
 ```
@@ -45,6 +56,9 @@ git submodule update
 rm src/config.h
 ./build.sh -i ${INSTALLDIR:?}
 cp bin/* ${INSTALLDIR:?}/bin/
+mkdir -p ${INSTALLDIR:?}/share/z88dk/
+cp -r lib ${INSTALLDIR:?}/share/z88dk/
+cp -r include ${INSTALLDIR:?}/
 ```
 
 ### cap32
