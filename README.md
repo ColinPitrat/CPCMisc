@@ -63,8 +63,9 @@ Debug build and allow core with `ulimit` to investigate in case of crash.
 ```
 cd ${TOOLSDIR:?}
 git clone https://github.com/leuat/TRSE.git
-qmake CONFIG+=debug TRSE.pro
-make
+cd TRSE
+qmake TRSE.pro
+make -j 10
 ln -s Publish/tutorials tutorials
 ln -s Publish/source/themes themes
 # Don't create the project_templates because it's already there
