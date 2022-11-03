@@ -1,10 +1,11 @@
 export PATH := $(PWD)/../../tools/install/bin:$(PATH)
 
+INCPATH:=$(PWD)/../../tools/install/include/
 ORG_HEX:=4000
 ORG_DEC:=`echo -e "ibase=16\n$(ORG_HEX)" | bc`
 
 all:
-	zcc +cpc -lndos -zorg=$(ORG_DEC) -o hello.bin hello.c
+	zcc +cpc -lndos -zorg=$(ORG_DEC) -I$(INCPATH) -o hello.bin hello.c
 	iDSK hello.dsk -n
 	iDSK hello.dsk -i hello.bin -t 1 -e $(ORG_HEX) -c $(ORG_HEX)
 
