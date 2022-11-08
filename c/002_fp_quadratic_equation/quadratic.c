@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <math/math_cpc.h>
+#include <math.h>
 
 #define BUFSIZE 80
 
