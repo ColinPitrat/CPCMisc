@@ -6,7 +6,8 @@ Various projects of coding for the Amstrad CPC
 
 ### basic/advanced
 
-Advanced (or contrived, or obfuscated) basic examples.
+Basic examples coming from the book "Advanced Programming Techniques on the
+Amstrad CPC 464" by Keith Hook.
 
 ### basic/sybex
 
