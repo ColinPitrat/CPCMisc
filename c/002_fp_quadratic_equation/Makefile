@@ -40,4 +40,4 @@ run_debug: all
 	cap32 -i $(PROGRAM).bin -o 0x$(ORG_HEX) -s symfile
 
 clean:
-	rm -f *.bin *.dsk
+	rm -f *.bin *.dsk *.map symfile
