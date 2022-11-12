@@ -6,7 +6,7 @@
 // Implement our own sqrt as it's not available in the math library at the
 // moment.
 // Not needed in the end as pow(x, 0.5) works but initially it was silently
-// broken because I was not including math/math_cpc.h.
+// broken because I was not including math.h.
 double_t sqrt(double_t x)
 {
   double_t e = x;
