@@ -1,5 +1,3 @@
-REM TODO: Animate Pucman by alternating between a full circle and the current ones
-REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 10 REM************************
 20 REM****PUCMAN'S REVENGE****
 30 REM************************
@@ -18,18 +16,21 @@ REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 100 GOSUB 700
 110 GOSUB 580
 120 REM****MAIN LOOP****
+125 IMG=IMG+1
 130 J$=INKEY$: IF J$="" THEN GOTO 180
-140 IF (J$="A" OR J$="a") AND X>3 THEN X=X-1: C$=CHR$(198): P=1
-150 IF (J$="Q" OR J$="q") AND X<24 THEN X=X+1: C$=CHR$(196): P=2
-160 IF (J$="O" OR J$="o") AND Y>2 THEN Y=Y-1: C$=CHR$(197): P=3
-170 IF (J$="P" OR J$="p") AND Y<38 THEN Y=Y+1: C$=CHR$(199): P=4
+140 IF (J$="A" OR J$="a") AND X>3 THEN X=X-1: NC$=CHR$(198): P=1
+150 IF (J$="Q" OR J$="q") AND X<24 THEN X=X+1: NC$=CHR$(196): P=2
+160 IF (J$="O" OR J$="o") AND Y>2 THEN Y=Y-1: NC$=CHR$(197): P=3
+170 IF (J$="P" OR J$="p") AND Y<38 THEN Y=Y+1: NC$=CHR$(199): P=4
 180 IF J$="" AND P=1 AND X>3 THEN X=X-1
 190 IF J$="" AND P=2 AND X<24 THEN X=X+1
 200 IF J$="" AND P=3 AND Y>2 THEN Y=Y-1
 210 IF J$="" AND P=4 AND Y<38 THEN Y=Y+1
-220 LOCATE YY, XX: PRINT" "
-230 IF S(Y,X)=9 THEN SC=SC+INT(RND*9)+3: SOUND 1,150,4,4: S(Y,X)=0
-240 IF S(Y,X)>9 THEN GOTO 320
+220 IF S(Y,X)=9 THEN SC=SC+INT(RND*9)+3: SOUND 1,150,4,4: S(Y,X)=0
+230 IF S(Y,X)>9 THEN GOTO 320
+235 REM IF IMG AND 1 THEN C$=CHR$(200) ELSE C$=NC$
+237 FRAME
+240 LOCATE YY, XX: PRINT" "
 250 LOCATE Y,X:PEN 2: PRINT C$:PEN 1
 260 SOUND 1,900,4,5,1,1: SOUND 1,0,4
 270 LOCATE 7,1: PRINT SC
@@ -53,6 +54,7 @@ REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 440 PRINT: PRINT"    YOUR SCORE WAS "; SC
 450 PRINT: PRINT
 460 IF HS(10)>=SC THEN PRINT"THAT IS NOT UP TO THE LOWEST HIGH SCORE "; HS(10): GOTO 480
+465 CLEAR INPUT
 470 HS(10)=SC: PRINT"WELL DONE, YOU NOW HAVE A HIGH SCORE": INPUT "ENTER YOUR NAME, PLEASE"; HS$(10)
 475 FOR I=9 TO 1 STEP -1
 476 IF HS(I+1)>HS(I) THEN T=HS(I):T$=HS$(I):HS(I)=HS(I+1):HS$(I)=HS$(I+1):HS(I+1)=T:HS$(I+1)=T$
@@ -69,6 +71,7 @@ REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 530 FOR I = 1 TO 10: PRINT #1,"  ";:PRINT #1,using "\                \";HS$(I);:print #1,"  ";:PRINT #1,using "#####";HS(I): NEXT I
 540 LOCATE 6,23
 550 PRINT "ANOTHER GO? PRESS 'Y' OR 'N'"
+555 CLEAR INPUT
 560 D$=INKEY$: IF D$="" THEN 560
 570 IF D$="Y" OR D$="y" THEN SOUND 1,180:GOTO 100
 575 IF D$="N" OR D$="n" THEN GOTO 1010
@@ -92,7 +95,7 @@ REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 740 NEXT: NEXT
 750 X=20: Y=13: SC=0
 760 XX=X: YY=Y
-770 F=0: G=0: A=0: B=0
+770 F=0: G=0: A=0: B=0: P=0: NC$=CHR$(200): IMG=0
 780 RETURN
 790 REM****TITLE****
 800 INK 1,24
@@ -110,6 +113,7 @@ REM TODO: Use CLEAR INPUT before user input (name for highscore, play again)
 920 SOUND 2,200,80
 930 RETURN
 940 REM***USER DEFINABLE GRAPHICS***
+945 SYMBOL 200,60,126,255,255,255,255,126,60
 950 SYMBOL 198,0,66,195,231,255,255,126,60
 960 SYMBOL 199,60,126,248,240,240,248,126,60
 970 SYMBOL 196,60,126,255,255,231,195,66,0
