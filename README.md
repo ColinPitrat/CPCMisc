@@ -4,20 +4,49 @@ Various projects of coding for the Amstrad CPC
 
 ## Content
 
-### basic/advanced
+### assembly/
+
+Programs fully written in assembly.
+
+### basic/
+
+Locomotive basic programs for the Amstrad CPC.
+
+Can be typed in the emulator with:
+
+```
+cd basic/
+for d in *
+do
+  iDSK -n ${d}.dsk
+  cap32 -O system.limit_speed=0 -a "$(for file in *.bas; do cat $file; echo "save\"$file"; echo "new"; done)" ${d}.dsk
+done
+```
+
+You'll need to save each DSK before quitting the emulator.
+
+#### basic/advanced
 
 Basic examples coming from the book "Advanced Programming Techniques on the
 Amstrad CPC 464" by Keith Hook.
 
-### basic/astounding
+#### basic/astounding
 
 Games from the book "Astounding Arcade Games For Your AMSTRAD" with bug fixes
 and minor improvements.
 
-### basic/sybex
+#### basic/sybex
 
 Jeux provenant du livre "Amstrad Jeux en Assembleur" d'Eric Ravis:
 https://www.cpcwiki.eu/index.php/Amstrad_Jeux_en_Assembleur
+
+### c/
+
+Programs written mostly in C.
+
+### TRSE/
+
+Programs written using [TRSE (Turbo Rascal Syntax Error)](https://lemonspawn.com/turbo-rascal-syntax-error-expected-but-begin/)
 
 ## Installing tools
 
