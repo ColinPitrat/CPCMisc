@@ -9,6 +9,11 @@ Various projects of coding for the Amstrad CPC
 Basic examples coming from the book "Advanced Programming Techniques on the
 Amstrad CPC 464" by Keith Hook.
 
+### basic/astounding
+
+Games from the book "Astounding Arcade Games For Your AMSTRAD" with bug fixes
+and minor improvements.
+
 ### basic/sybex
 
 Jeux provenant du livre "Amstrad Jeux en Assembleur" d'Eric Ravis:
