@@ -35,6 +35,10 @@ Amstrad CPC 464" by Keith Hook.
 Games from the book "Astounding Arcade Games For Your AMSTRAD" with bug fixes
 and minor improvements.
 
+#### basic/user_manual
+
+Games from the Amstrad CPC 6128 Plus user manual, French version, with bug fixes.
+
 #### basic/sybex
 
 Jeux provenant du livre "Amstrad Jeux en Assembleur" d'Eric Ravis:
