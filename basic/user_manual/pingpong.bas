@@ -1,0 +1,85 @@
+10 REM Ping-pong by David Radisic
+20 REM Copyright Amsoft 1985
+30 REM
+40 DEFINT a-z
+50 comp=1
+60 ENV 1,=11,20,=9,5000
+70 MODE 1:INK 0,10:BORDER 10:INK 1,26:INK 2,18:INK 3,0
+80 GOSUB 710
+90 GOSUB 150
+100 GOSUB 341
+110 GOSUB 420
+120 LOCATE 13,1:PRINT USING "####";score1;
+130 LOCATE 35,1:PRINT USING "####";score2;
+140 GOTO 100
+150 PEN 2
+160 x(1)=3:y(1)=5
+170 x(2)=37:y(2)=22
+180 cotes$=CHR$(233):cotes2$=STRING$(2,207)
+190 LOCATE 1,3
+200 PRINT STRING$(39,cotes$)
+210 PRINT STRING$(39,cotes$)
+220 FOR i=1 TO 19
+230 PRINT cotes2$;TAB(38);cotes2$
+240 NEXT
+250 PRINT STRING$(39,cotes$):PRINT STRING$(39,cotes$);
+260 WINDOW #1,3,37,5,23
+270 CLS #1
+280 SYMBOL 240,0,60,126,126,126,126,60,0
+290 raquettes$=CHR$(133)+CHR$(8)+CHR$(10)+CHR$(133)
+300 eff$=" "+CHR$(8)+CHR$(10)+" "
+310 balle$=CHR$(240)
+320 PEN 3
+330 LOCATE 2,1:PRINT "Joueur 1: 0";:LOCATE 24,1:PRINT "Joueur 2: 0";
+340 RETURN
+341 n=INT(RND*2):CLS #1:scored=0
+342 PEN 3
+350 FOR i=1 TO 2:LOCATE x(i),y(i):PRINT raquettes$;:NEXT
+360 ON n GOTO 390
+370 xb=21:dx=1
+380 GOTO 400
+390 xb=19:dx=-1
+400 yb=12:dy=INT(RND*3)-1
+410 RETURN
+420 GOSUB 600
+430 oxb=xb:oyb=yb
+440 GOSUB 500
+450 IF note>0 THEN SOUND 129,note,50,15,1
+460 LOCATE oxb,oyb:PRINT " ";
+470 LOCATE xb,yb:PRINT balle$
+480 IF scored=0 THEN 420
+490 RETURN
+500 LOCATE xb+dx,yb+dy:ch$=COPYCHR$(#0)
+510 note=0
+520 IF ch$=" " THEN xb=xb+dx:yb=yb+dy:RETURN
+530 IF ch$=CHR$(133) THEN dx=2-dx-2:dy=INT(RND*3)-1:note=200:RETURN
+540 IF ch$=LEFT$(cotes2$,1) THEN 570
+550 IF ch$=cotes$ THEN dy=2-dy-2:note=250
+560 RETURN
+570 IF dx>0 THEN score1=score1+1 ELSE score2=score2+1
+580 scored=1:note=2000
+590 RETURN
+600 p(1)=(INKEY(69)>=0)+(INKEY(72)>=0)+ABS((INKEY(71)>=0)+(INKEY(73)>=0))*2
+610 IF comp=1 THEN p(2)=ABS(y(2)<yb)*2+(y(2)>yb):GOTO 630
+620 p(2)=(INKEY(4)>=0)+(INKEY(48)>=0)+ABS((INKEY(5)>=0)+(INKEY(49)>=0))*2
+630 PEN 3
+640 FOR i=1 TO 2
+650 LOCATE x(i),y(i)+p(i):ch$=COPYCHR$(#0)
+660 IF ch$=" " THEN LOCATE x(i),y(i):PRINT eff$;:y(i)=y(i)+ROUND(p(i)/2)
+670 LOCATE x(i),y(i):PRINT raquettes$;
+680 NEXT
+690 PEN 1
+700 RETURN
+710 PEN 2:PRINT:PRINT TAB(15)"PING-PONG":PRINT TAB(15)"---------"
+720 PEN 3:PRINT:PRINT TAB(14)"Pour utiliser les raquettes:"
+730 PRINT:PRINT:PEN 1
+740 PRINT " JOUEUR 1   JOUEUR 2    DIRECTION":PRINT
+750 PRINT "        Q          6         HAUT"
+760 PRINT "        W          3          BAS":PRINT
+770 PEN 3:PRINT:PRINT TAB(14)" ou les joysticks"
+780 PRINT:PRINT:PRINT:PRINT
+790 PEN 2
+800 PRINT TAB(6)" CHOIX: <1> ou <2> joueurs"
+810 i$=INKEY$:IF i$<>"1" AND i$<>"2" THEN 810
+820 IF i$="1" THEN comp=1 ELSE comp=0
+830 MODE 1:RETURN
