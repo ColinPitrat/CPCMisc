@@ -1,7 +1,7 @@
 export PATH := $(PWD)/../../tools/install/bin:$(PATH)
 
 INCPATH:=$(PWD)/../../tools/install/include/
-ORG_HEX:=8000
+ORG_HEX:=0000
 ORG_DEC:=`echo -e "ibase=16\n$(ORG_HEX)" | bc`
 
 PROGRAM:=plustest
@@ -10,7 +10,7 @@ CAPRICE_OPTIONS:=-O system.model=3
 
 all:
 	zcc +embedded --no-crt -m -o $(PROGRAM) $(PROGRAM).c
-	cpr2bin.py --to-cpr $(PROGRAM) $(PROGRAM).cpr
+	cpr2bin.py --to-cpr $(PROGRAM)_code_user.bin $(PROGRAM).cpr
 	# Generate symfile
 	# Disassemble from entry point
 	echo 'd $$0000' > symfile
