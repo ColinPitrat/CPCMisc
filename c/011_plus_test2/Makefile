@@ -10,10 +10,7 @@ PROGRAM:=plustest
 CAPRICE_OPTIONS:=-O system.model=3
 
 all:
-	zcc +embedded --no-crt -m -o $(PROGRAM) $(PROGRAM).c
-	./check_symbols.sh
-	cpr2bin.py --to-cpr $(PROGRAM)_code_user.bin $(PROGRAM).cpr
-	#cpr2bin.py --to-cpr $(PROGRAM) $(PROGRAM).cpr
+	zcc +cpc -subtype=cart -create-app -m -o $(PROGRAM) $(PROGRAM).c
 	# Generate symfile
 	# Disassemble from entry point
 	echo 'd $$0000' > symfile
@@ -30,4 +27,4 @@ run: all
 	cap32 -s=symfile $(CAPRICE_OPTIONS) $(PROGRAM).cpr
 
 clean:
-	rm -f *.o *.bin *.dsk *.map symfile *.cpr $(PROGRAM)
+	rm -f *.o *.bin *.dsk *.map symfile

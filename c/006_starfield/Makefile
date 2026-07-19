@@ -1,4 +1,5 @@
 export PATH := $(PWD)/../../tools/install/bin:$(PATH)
+export ZCCCFG := $(realpath $(PWD)/../../tools/install/share/z88dk/lib/config/)
 
 INCPATH:=$(PWD)/../../tools/install/include/
 ORG_HEX:=4000

@@ -9,7 +9,7 @@ extern unsigned char read_key_row(unsigned int row) __z88dk_callee;
 extern void read_keyboard_matrix();
 extern void delay_ms(unsigned int ms) __z88dk_fastcall;
 
-extern char keyboard_matrix[10];
+extern unsigned char keyboard_matrix[10];
 
 
 #define BOOL unsigned char
@@ -314,13 +314,21 @@ void print(unsigned int x, unsigned int y, char* message) {
   }
 }
 
+void print_number(unsigned int x, unsigned int y, unsigned int number) {
+  for (unsigned int i = 5; i > 0; i--) {
+    unsigned int n = number % 10;
+    number /= 10;
+    put_char(x+i-1, y, 0x30+n);
+  }
+}
+
 void wait_for_keypressed() {
   while (TRUE) {
     read_keyboard_matrix();
     for (unsigned int i = 0; i < 10; i++) {
       // Very weird bug in zcc: if keyboard_matrix is used directly in the `if`,
       // then the label generated will be in bss_user instead of being in the code!
-      char k = keyboard_matrix[i];
+      unsigned char k = keyboard_matrix[i];
       // If the value is not 0, it means at least one key in this row is pressed
       if (k != 0) {
         return;
@@ -329,6 +337,32 @@ void wait_for_keypressed() {
   }
   return;
 }
+
+// Return a key code pressed of the form <line+1><bit> in hex.
+// For example, M is bit 6 of line 4, so pressing it would return 0x75.
+// If multiple keys are pressed, return the first one found.
+unsigned char wait_key() {
+  // TODO: understand why this doesn't work!
+  while (TRUE) {
+    read_keyboard_matrix();
+    for (unsigned int i = 0; i < 10; i++) {
+      // Very weird bug in zcc: if keyboard_matrix is used directly in the `if`,
+      // then the label generated will be in bss_user instead of being in the code!
+      unsigned char k = keyboard_matrix[i];
+      if (k != 0) {
+        char bit = 0;
+        for (unsigned int i = 0; i < 8; i++) {
+          if (k & (1 << i)) {
+            bit = i;
+          }
+        }
+        return (i+1)*16 + bit;
+      }
+    }
+  }
+  return 0;
+}
+
 
 void main()
 {
@@ -344,9 +378,20 @@ void main()
   print(0, 24, "\\");
   print(39, 24, "/");
   print(8, 1, "Caprice32 test cartridge");
+  print(0, 10, "......");
+  print_number(2, 10, 0);
+  print_number(2, 11, 65535);
+  print_number(2, 12, 1729);
 
   print(3, 15, "Press any key to start timer");
   wait_for_keypressed();
+  /*
+  unsigned char k = 0;
+  while (k == 0) { // TODO: check for 'S' (0x84)
+    k = wait_key();
+    print_number(18, 17, k);
+  }
+  */
   print(3, 15, "Timer started               ");
   delay_ms(1000);
   print(3, 15, "Press any key to continue...");
@@ -369,6 +414,8 @@ SECTION bss_compiler
 SECTION code_math
 SECTION code_l
 SECTION code_l_sccz80
+SECTION code_error
+SECTION bss_error
 
 SECTION bss_user
 ORG 0x8000
@@ -379,5 +426,7 @@ PUBLIC _keyboard_matrix
 // A bit in a byte will be '1' if the corresponding key
 // is pressed, '0' if the key is not pressed.
 _keyboard_matrix: defs 10
+
+SECTION code_user
 
 #endasm
