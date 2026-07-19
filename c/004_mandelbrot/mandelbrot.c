@@ -14,7 +14,7 @@ double_t max_y = 1.0;
 
 draw_mandelbrot_at_offset(x_off, y_off, delta)
 {
-  for (int x = x_off; x < 640; x += delta)
+  for (int x = x_off; x < 320; x += delta)
   {
     double_t X = x;
     X = min_x + X * (max_x - min_x) / 640;
