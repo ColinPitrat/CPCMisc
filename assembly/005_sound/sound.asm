@@ -17,17 +17,43 @@ start:
        ld a,&10
        call write_to_psg
 
-       ; Activate tone on channel A
-       ld c,7
-       ld a,62
+       ; Set volume to 'envelope' (0x10) on channel B
+       ld c,9
+       ld a,&10
        call write_to_psg
 
-       ; Set tone to 142 (0x8E) which is ~440 Hz
+       ; Set volume to 'envelope' (0x10) on channel c
+       ld c,&a
+       ld a,&10
+       call write_to_psg
+
+       ; Activate tone on channel A, B and C
+       ld c,7
+       ld a,56
+       call write_to_psg
+
+       ; Set tone for channel A to 142 (0x8E) which is ~440 Hz
        ld c,0
        ld a,&8e
        call write_to_psg
        ld c,1
        ld a,0
+       call write_to_psg
+
+       ; Set tone for channel B to 71 (0x47) which is ~880 Hz
+       ld c,2
+       ld a,&47
+       call write_to_psg
+       ld c,3
+       ld a,0
+       call write_to_psg
+
+       ; Set tone for channel C to 284 (0x11C) which is ~220 Hz
+       ld c,4
+       ld a,&1C
+       call write_to_psg
+       ld c,5
+       ld a,1
        call write_to_psg
 
        ld d,0
