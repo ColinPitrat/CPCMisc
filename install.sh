@@ -31,5 +31,5 @@ cp -r lib ${INSTALLDIR:?}/share/z88dk/
 cp -r include ${INSTALLDIR:?}/
 
 # Patch for 008_interrupts
-cp $(INSTALLDIR)/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm $(INSTALLDIR)/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm.ori
-sed -i 's/^__fw_int_address__/PUBLIC __fw_int_address__/' $(INSTALLDIR)/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm
+cp ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm.ori
+sed -i 's/^__fw_int_address__/PUBLIC __fw_int_address__/' ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm
