@@ -30,6 +30,10 @@ mkdir -p ${INSTALLDIR:?}/share/z88dk/
 cp -r lib ${INSTALLDIR:?}/share/z88dk/
 cp -r include ${INSTALLDIR:?}/
 
+# Patch for 008_interrupts
+cp ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm.ori
+sed -i 's/^__fw_int_address__/PUBLIC __fw_int_address__/' ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm
+
 # Install iDSK
 if [ ! -d idsk ]
 then
@@ -41,7 +45,3 @@ cmake ..
 cmake --build .
 cd ../../
 cp idsk/build/iDSK ${INSTALLDIR:?}/bin/
-
-# Patch for 008_interrupts
-cp ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm.ori
-sed -i 's/^__fw_int_address__/PUBLIC __fw_int_address__/' ${INSTALLDIR:?}/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm
