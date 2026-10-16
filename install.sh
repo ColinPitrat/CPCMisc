@@ -33,3 +33,15 @@ cp -r include ${INSTALLDIR:?}/
 # Patch for 008_interrupts
 cp ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm.ori
 sed -i 's/^__fw_int_address__/PUBLIC __fw_int_address__/' ${INSTALLDIR:?}/tools/install/share/z88dk/lib/target/cpc/classic/cpc_crt0.asm
+
+# Install iDSK
+if [ ! -d idsk ]
+then
+  git clone https://github.com/cpcsdk/idsk.git
+fi
+cd idsk
+mkdir -p build && cd build
+cmake ..
+cmake --build .
+cd ../../
+cp idsk/build/iDSK ${INSTALLDIR:?}/bin/
