@@ -4,4 +4,4 @@
 *.cpr
 *.map
 symfile
-tools/
+/tools/
