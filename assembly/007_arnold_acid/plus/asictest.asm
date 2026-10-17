@@ -98,13 +98,32 @@ inc ix
 ld (ix+0),&1
 inc ix
 
+ld de,&333
+ld (&6000),de
+;; set low byte
+ld hl,&6000
+ld (hl),c
+
+ld a,(hl)
+ld (ix+0),a
+inc hl
+inc ix
+ld (ix+0),c
+inc ix
+ld a,(hl)
+ld (ix+0),a
+inc hl
+inc ix
+ld (ix+0),&ff
+inc ix
+
 pop bc
 inc c
 djnz sxlh
 call restore_asic
 ei
 ld ix,result_buffer
-ld bc,256*2
+ld bc,256*4
 jp simple_results
 
 spritey_lh:
