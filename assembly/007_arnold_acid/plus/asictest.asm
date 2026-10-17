@@ -49,7 +49,22 @@ DEFINE_TEST "sprite coord test y (ffc0-0040)",spritey_coord_test
 DEFINE_TEST "sprite coord test x (200-400)",spritex2_coord_test
 DEFINE_TEST "sprite coord test y (0080-0280)",spritey2_coord_test
 DEFINE_TEST "ASIC GA I/O decode test",ga_io_decode
-DEFINE_TEST "sprite ram mask",sprite_ram_mask
+DEFINE_TEST "sprite ram mask (0)",sprite_ram_mask0
+DEFINE_TEST "sprite ram mask (1)",sprite_ram_mask1
+DEFINE_TEST "sprite ram mask (2)",sprite_ram_mask2
+DEFINE_TEST "sprite ram mask (3)",sprite_ram_mask3
+DEFINE_TEST "sprite ram mask (4)",sprite_ram_mask4
+DEFINE_TEST "sprite ram mask (5)",sprite_ram_mask5
+DEFINE_TEST "sprite ram mask (6)",sprite_ram_mask6
+DEFINE_TEST "sprite ram mask (7)",sprite_ram_mask7
+DEFINE_TEST "sprite ram mask (8)",sprite_ram_mask8
+DEFINE_TEST "sprite ram mask (9)",sprite_ram_mask9
+DEFINE_TEST "sprite ram mask (10)",sprite_ram_mask10
+DEFINE_TEST "sprite ram mask (11)",sprite_ram_mask11
+DEFINE_TEST "sprite ram mask (12)",sprite_ram_mask12
+DEFINE_TEST "sprite ram mask (13)",sprite_ram_mask13
+DEFINE_TEST "sprite ram mask (14)",sprite_ram_mask14
+DEFINE_TEST "sprite ram mask (15)",sprite_ram_mask15
 DEFINE_TEST "sprite coord mirror",sprite_coord_mirror
 DEFINE_END_TEST
 
@@ -2124,6 +2139,53 @@ ret
 
 
 ;; check written sprite values are masked with 0x0f
+sprite_ram_mask0:
+ld h,&40
+jr sprite_ram_mask
+sprite_ram_mask1:
+ld h,&41
+jr sprite_ram_mask
+sprite_ram_mask2:
+ld h,&42
+jr sprite_ram_mask
+sprite_ram_mask3:
+ld h,&43
+jr sprite_ram_mask
+sprite_ram_mask4:
+ld h,&44
+jr sprite_ram_mask
+sprite_ram_mask5:
+ld h,&45
+jr sprite_ram_mask
+sprite_ram_mask6:
+ld h,&46
+jr sprite_ram_mask
+sprite_ram_mask7:
+ld h,&47
+jr sprite_ram_mask
+sprite_ram_mask8:
+ld h,&48
+jr sprite_ram_mask
+sprite_ram_mask9:
+ld h,&49
+jr sprite_ram_mask
+sprite_ram_mask10:
+ld h,&4a
+jr sprite_ram_mask
+sprite_ram_mask11:
+ld h,&4b
+jr sprite_ram_mask
+sprite_ram_mask12:
+ld h,&4c
+jr sprite_ram_mask
+sprite_ram_mask13:
+ld h,&4d
+jr sprite_ram_mask
+sprite_ram_mask14:
+ld h,&4e
+jr sprite_ram_mask
+sprite_ram_mask15:
+ld h,&4f
 sprite_ram_mask:
 di
 call asic_enable
@@ -2131,8 +2193,8 @@ call asic_enable
 ld bc,&7fb8
 out (c),c
 ld ix,result_buffer
-ld hl,&4000
-ld bc,16*256
+ld l,0
+ld bc,256
 srm1:
 call check_mask_0f
 ld a,0
@@ -2154,7 +2216,7 @@ call restore_asic
 
 ei
 ld ix,result_buffer
-ld bc,16*256
+ld bc,256
 jp simple_results
 
 
