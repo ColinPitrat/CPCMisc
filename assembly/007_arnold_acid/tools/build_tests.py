@@ -115,19 +115,19 @@ def build_files_txt_suite(rel_dir, dsk_map, extra_args):
 
 
 def build_extra_targets():
-    # 1. aleste/aleste_ram_cpc.asm
+    # aleste/aleste_ram_cpc.asm
     run_cmd(
         ["pasmo", "--amsdos", "aleste_ram_cpc.asm", "ram_cpc.bin"],
         cwd=os.path.join(ROOT_DIR, "aleste"),
     )
 
-    # 2. cpc/mode3
+    # cpc/mode3
     mode3_dir = os.path.join(ROOT_DIR, "cpc/mode3")
     run_cmd(["pasmo", "--amsdos", "mode3.asm", "mode3.bin"], cwd=mode3_dir)
     run_cmd(["pasmo", "--amsdos", "mode3tst.asm", "mode3tst.bin"], cwd=mode3_dir)
     create_dsk_with_files(mode3_dir, "mode3.dsk", ["mode3.bin", "mode3tst.bin"])
 
-    # 3. cpctests
+    # cpctests
     cpctests_dir = os.path.join(ROOT_DIR, "cpctests")
     cpctests_list = [
         ("flood.asm", "flood.bin"),
@@ -162,7 +162,7 @@ def build_extra_targets():
         run_cmd(["pasmo", "--amsdos", src, dst], cwd=images_sub)
     create_dsk_with_files(images_sub, "patterns.dsk", [dst for _, dst in img_list])
 
-    # 4. crtc/intlace, crtc/intsync, crtc/crtc
+    # crtc/intlace, crtc/intsync, crtc/crtc
     intlace_dir = os.path.join(ROOT_DIR, "crtc/intlace")
     run_cmd(["pasmo", "--amsdos", "intlace.asm", "intlace.bin"], cwd=intlace_dir)
     create_dsk_with_files(intlace_dir, "intlace.dsk", ["intlace.bin"])
@@ -171,7 +171,7 @@ def build_extra_targets():
     run_cmd(["pasmo", "--amsdos", "intsync.asm", "intsync.bin"], cwd=intsync_dir)
     create_dsk_with_files(intsync_dir, "intsync.dsk", ["intsync.bin"])
 
-    # 5. crtc_detect
+    # crtc_detect
     crtc_det_dir = os.path.join(ROOT_DIR, "crtc_detect")
     det_list = [
         ("crtc_12_01_2005_v3_0_offset.asm", "ofstv30.bin"),
@@ -186,7 +186,7 @@ def build_extra_targets():
         run_cmd(["pasmo", "--amsdos", src, dst], cwd=crtc_det_dir)
     create_dsk_with_files(crtc_det_dir, "crtctype.dsk", [dst for _, dst in det_list])
 
-    # 6. devices/csd
+    # devices/csd
     csd_dir = os.path.join(ROOT_DIR, "devices/csd")
     run_cmd(["pasmo", "--amsdos", "csdtest.asm", "csdtest.bin"], cwd=csd_dir)
     create_dsk_with_files(csd_dir, "csdtest.dsk", ["csdtest.bin"])
@@ -196,7 +196,7 @@ def build_extra_targets():
         os.path.join(csd_dir, "dummycart.cpr"),
     )
 
-    # 7. disc/fdc_* and disc/fdctest3 and disc/morefdctest
+    # disc/fdc_* and disc/fdctest3 and disc/morefdctest
     for sub in (
         "disc/fdc_gen",
         "disc/fdc_hang",
@@ -230,7 +230,7 @@ def build_extra_targets():
         run_cmd(["pasmo", "--equ", "CPC=1", "--equ", "SPEC=0", "--amsdos", src, dst], cwd=morefdc_dir)
     create_dsk_with_files(morefdc_dir, "cpc_fdctest.dsk", [dst for _, dst in morefdc_list])
 
-    # 8. dissassembler & examples & monitor/safezone
+    # dissassembler & examples & monitor/safezone
     diss_dir = os.path.join(ROOT_DIR, "dissassembler")
     run_cmd(["pasmo", "--amsdos", "opcodes.asm", "opcodes.bin"], cwd=diss_dir)
     create_dsk_with_files(diss_dir, "opcodes.dsk", ["opcodes.bin"])
@@ -244,7 +244,7 @@ def build_extra_targets():
     run_cmd(["pasmo", "--amsdos", "safezone.asm", "safezone.bin"], cwd=sz_dir)
     create_dsk_with_files(sz_dir, "safezone.dsk", ["safezone.bin"])
 
-    # 9. plus extras & power_on_test_cart
+    # plus extras & power_on_test_cart
     plus_dir = os.path.join(ROOT_DIR, "plus")
     run_cmd(["pasmo", "--amsdos", "andy.asm", "andy.bin"], cwd=plus_dir)
     run_cmd(["pasmo", "--amsdos", "asicjoy.asm", "asicjoy.bin"], cwd=plus_dir)
@@ -272,7 +272,7 @@ def build_extra_targets():
         os.path.join(potc_vis_dir, "poweron.cpr"),
     )
 
-    # 10. rom
+    # rom
     rom_dir = os.path.join(ROOT_DIR, "rom")
     run_cmd(["pasmo", "--bin", "shortrom.s", "short.bin"], cwd=rom_dir)
     addhead.add_amsdos_header(
@@ -306,11 +306,11 @@ def build_extra_targets():
         with open(os.path.join(rom_dir, f"{base}extra.bin"), "wb") as f:
             f.write(b + msg)
 
-    # 11. snapshot/snaptest1.asm
+    # snapshot/snaptest1.asm
     snap_dir = os.path.join(ROOT_DIR, "snapshot")
     run_cmd(["pasmo", "--amsdos", "snaptest1.asm", "snaptst1.bin"], cwd=snap_dir)
 
-    # 12. z80tests/patrik_z80test/cpc/z80test-1.0/src
+    # z80tests/patrik_z80test/cpc/z80test-1.0/src
     patrik_src = os.path.join(ROOT_DIR, "z80tests/patrik_z80test/cpc/z80test-1.0/src")
     patrik_parent = os.path.dirname(patrik_src)
     patrik_progs = [
@@ -333,7 +333,7 @@ def build_extra_targets():
     if os.path.exists(os.path.join(patrik_src, "data.bin")):
         os.remove(os.path.join(patrik_src, "data.bin"))
 
-    # 13. z80tests/woody/z80tests
+    # z80tests/woody/z80tests
     woody_dir = os.path.join(ROOT_DIR, "z80tests/woody/z80tests")
     run_cmd(["pasmo", "--alocal", "--amsdos", "z80tests.asm", "z80tests.bin"], cwd=woody_dir)
     create_dsk_with_files(woody_dir, "z80tests.dsk", ["z80tests.bin"])
