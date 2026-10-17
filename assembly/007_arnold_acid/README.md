@@ -80,7 +80,7 @@ Running the following binaries:
  - `afterlck`
  - `hscrl`
  - `scrlr8`
- - `scrl_mid`
+ - `scrlmid`
  - `split`
  - `splits`
  - `splt`
@@ -93,7 +93,7 @@ Running the following binaries:
 
 Running the following binaries:
  - `vscrl`
- - `vscrl_r9`
+ - `vscrlr9`
  - `sprmagmr`
  - `dmatime2`
 
