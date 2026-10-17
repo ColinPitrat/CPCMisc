@@ -187,5 +187,5 @@ defb &3f, &28, &2e, &8e, &26, &00, &19, &1e, &00, &07, &00,&00,&30,&00,&c0,&00
 end_crtc_data:
 
 sysfont:
-incbin "../lib/hw/sysfont.bin"
+incbin "../lib/hw/sysfont.dat"
 end start

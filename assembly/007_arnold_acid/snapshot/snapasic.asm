@@ -391,7 +391,7 @@ defw 100
 defb %0101
 
 sprites:
-incbin "sprites.bin"
+incbin "sprites.dat"
 
 sprite_colours:
 include "sprite_pal.asm"

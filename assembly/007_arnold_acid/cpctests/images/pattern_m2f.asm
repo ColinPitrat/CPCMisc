@@ -62,9 +62,9 @@ halt
 jp loop
 
 pat1:
-incbin "pattern_mode2fa.bin"
+incbin "pattern_mode2fa.dat"
 pat2:
-incbin "pattern_mode2fb.bin"
+incbin "pattern_mode2fb.dat"
 end_pat2:
 
 scr:

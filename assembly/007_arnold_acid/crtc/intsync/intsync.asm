@@ -42,8 +42,8 @@ ret
 
 
 topscr:
-incbin "imgtop.bin"
+incbin "imgtop.dat"
 botscr:
-incbin "imgbot.bin"
+incbin "imgbot.dat"
 
 end start

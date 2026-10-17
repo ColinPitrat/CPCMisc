@@ -3,7 +3,7 @@ org &4000
 scr_set_mode equ &bc0e
 scr_set_ink equ &bc32
 
-incbin "pattern_mode1.bin"
+incbin "pattern_mode1.dat"
 
 ;; top two patterns are the same
 ;; 3rd has obvious lines

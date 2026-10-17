@@ -197,7 +197,7 @@ end_crtc_data:
 
 
 sysfont:
-incbin "../lib/hw/sysfont.bin"
+incbin "../lib/hw/sysfont.dat"
 
 
 end start

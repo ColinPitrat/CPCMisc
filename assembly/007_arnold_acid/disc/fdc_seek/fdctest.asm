@@ -2333,7 +2333,8 @@ call copy_results
 ld bc,3+8
 jp do_results
 
-;;--------------------------------------------------
+
+;;--------------------------------------------------
 ;; do a long seek, then attempt a read id immediatly
 
 res_seek_test5:
@@ -3571,7 +3572,7 @@ include "../../lib/spec/scr.asm"
 include "../../lib/spec/writetext.asm"
 
 sysfont:
-incbin "../../lib/spec/font.bin"
+incbin "../../lib/spec/font.dat"
 
 endif
 include "../fdchelper.asm"

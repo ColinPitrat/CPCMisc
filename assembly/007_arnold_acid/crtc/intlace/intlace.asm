@@ -10,7 +10,7 @@ org &01a0
 km_wait_char equ &bb06
 txt_output equ &bb5a
 
-incbin "lotus.bin"
+incbin "lotus.dat"
 
 display_text:
 ld a,(hl)

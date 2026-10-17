@@ -2038,7 +2038,7 @@ include "../lib/spec/scr.asm"
 include "../lib/spec/writetext.asm"
 
 sysfont:
-incbin "../lib/spec/font.bin"
+incbin "../lib/spec/font.dat"
 
 endif
 

@@ -3,7 +3,7 @@ org &4000
 scr_set_mode equ &bc0e
 scr_set_ink equ &bc32
 
-incbin "pattern_mode2.bin"
+incbin "pattern_mode2.dat"
 
 ;; first two look the same (merged). dots can sometimes be obvious to see in the pattern
 ;; 3rd is obviously lined

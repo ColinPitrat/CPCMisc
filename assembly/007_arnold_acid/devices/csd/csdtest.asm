@@ -160,7 +160,7 @@ include "../../lib/hw/readkeys.asm"
 include "../../lib/hw/printtext.asm"
 
 sysfont:
-incbin "../../lib/hw/sysfont.bin"
+incbin "../../lib/hw/sysfont.dat"
 
 ;; in ram!
 result_buffer: equ &8000

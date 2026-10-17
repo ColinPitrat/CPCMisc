@@ -196,7 +196,7 @@ prev_matrix_buffer:
 defs 16
 
 scr_data:
-incbin "mode3scr.bin"
+incbin "mode3scr.dat"
 
 int_store:
 defs 3

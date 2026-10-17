@@ -137,7 +137,7 @@ include "../lib/hw/writetext.asm"
 include "../lib/hw/scr.asm"
 
 sysfont:
-incbin "../lib/hw/sysfont.bin"
+incbin "../lib/hw/sysfont.dat"
 
 key_addr:
 defs 16*8*2

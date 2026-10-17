@@ -18,22 +18,22 @@ import sjasm2pasmo
 
 # Input binary assets referenced via incbin (MUST NOT be removed by clean)
 INCBIN_ASSETS = {
-    "lib/hw/sysfont.bin",
-    "lib/spec/font.bin",
-    "lib/spec/sysfont.bin",
-    "cpc/mode3/mode3scr.bin",
-    "cpctests/flash/pattern_mode1.bin",
-    "cpctests/flash/pattern_mode2.bin",
-    "cpctests/images/pattern_mode1.bin",
-    "cpctests/images/pattern_mode1fa.bin",
-    "cpctests/images/pattern_mode1fb.bin",
-    "cpctests/images/pattern_mode2.bin",
-    "cpctests/images/pattern_mode2fa.bin",
-    "cpctests/images/pattern_mode2fb.bin",
-    "crtc/intlace/lotus.bin",
-    "crtc/intsync/imgbot.bin",
-    "crtc/intsync/imgtop.bin",
-    "snapshot/sprites.bin",
+    "lib/hw/sysfont.dat",
+    "lib/spec/font.dat",
+    "lib/spec/sysfont.dat",
+    "cpc/mode3/mode3scr.dat",
+    "cpctests/flash/pattern_mode1.dat",
+    "cpctests/flash/pattern_mode2.dat",
+    "cpctests/images/pattern_mode1.dat",
+    "cpctests/images/pattern_mode1fa.dat",
+    "cpctests/images/pattern_mode1fb.dat",
+    "cpctests/images/pattern_mode2.dat",
+    "cpctests/images/pattern_mode2fa.dat",
+    "cpctests/images/pattern_mode2fb.dat",
+    "crtc/intlace/lotus.dat",
+    "crtc/intsync/imgbot.dat",
+    "crtc/intsync/imgtop.dat",
+    "snapshot/sprites.dat",
     "z80tests/woody/z80tests/48.rom",
 }
 
@@ -252,16 +252,33 @@ def build_extra_targets():
     potc_dir = os.path.join(ROOT_DIR, "plus/power_on_test_cart")
     for i in range(1, 32):
         run_cmd(["pasmo", "--bin", f"page{i}.s", f"page{i}.bin"], cwd=potc_dir)
-    run_cmd(["pasmo", "--bin", "test.s", "test.bin"], cwd=potc_dir)
-    run_cmd(["pasmo", "--bin", "boot.s", "boot.bin"], cwd=potc_dir)
-    with open(os.path.join(potc_dir, "cart.bin"), "wb") as out_f:
-        with open(os.path.join(potc_dir, "boot.bin"), "rb") as in_f:
-            out_f.write(in_f.read())
-        for i in range(1, 32):
-            with open(os.path.join(potc_dir, f"page{i}.bin"), "rb") as in_f:
+    for variant_cpr, gx4000_val, plus464_val in (
+        ("cart_gx4000.cpr", "1", "0"),
+        ("cart_464plus.cpr", "0", "1"),
+        ("cart_6128plus.cpr", "0", "0"),
+    ):
+        run_cmd(
+            [
+                "pasmo",
+                "--equ", f"GX4000={gx4000_val}",
+                "--equ", f"PLUS464={plus464_val}",
+                "--bin", "test.s", "test.bin",
+            ],
+            cwd=potc_dir,
+        )
+        run_cmd(["pasmo", "--bin", "boot.s", "boot.bin"], cwd=potc_dir)
+        with open(os.path.join(potc_dir, "cart.bin"), "wb") as out_f:
+            with open(os.path.join(potc_dir, "boot.bin"), "rb") as in_f:
                 out_f.write(in_f.read())
-    bin2cpr.build_cpr(
-        os.path.join(potc_dir, "cart.bin"),
+            for i in range(1, 32):
+                with open(os.path.join(potc_dir, f"page{i}.bin"), "rb") as in_f:
+                    out_f.write(in_f.read())
+        bin2cpr.build_cpr(
+            os.path.join(potc_dir, "cart.bin"),
+            os.path.join(potc_dir, variant_cpr),
+        )
+    shutil.copy2(
+        os.path.join(potc_dir, "cart_6128plus.cpr"),
         os.path.join(potc_dir, "cart.cpr"),
     )
 
