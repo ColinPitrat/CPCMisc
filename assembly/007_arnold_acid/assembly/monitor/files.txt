@@ -1,2 +1,0 @@
-hrange,hrange
-vrange,vrange

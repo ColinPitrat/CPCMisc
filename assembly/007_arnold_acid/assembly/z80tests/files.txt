@@ -1,6 +1,0 @@
-cpu,cpu
-inout,inout
-itest,itest
-jrtest,jrtest
-optests,optests
-rtestopcodes,rtest

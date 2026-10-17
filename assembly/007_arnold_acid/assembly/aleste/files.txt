@@ -1,9 +1,0 @@
-aleste_black,black
-aleste_caps,caps
-aleste_cols,cols
-aleste_rgb,rgb
-aleste_rus,rus
-lum_aleste,lum
-aleste_modes,modes
-aleste_ram,ram
-

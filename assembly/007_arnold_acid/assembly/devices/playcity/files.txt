@@ -1,2 +1,0 @@
-nmi,nmi
-nmi2,nmi2

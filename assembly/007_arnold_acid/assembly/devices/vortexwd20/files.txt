@@ -1,2 +1,0 @@
-vortexwd20,vtxwd20
-vortexparam,vtxparam

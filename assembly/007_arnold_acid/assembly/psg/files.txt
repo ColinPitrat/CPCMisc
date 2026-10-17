@@ -1,2 +1,0 @@
-psg,psg
-psgexer,psgexer
