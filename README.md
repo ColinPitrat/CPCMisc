@@ -54,6 +54,20 @@ Programs written using [TRSE (Turbo Rascal Syntax Error)](https://lemonspawn.com
 
 ## Installing tools
 
+The following packages should be installed using your package manager (or
+alternative method if not available in the package manager):
+ - `pasmo`
+ - `z80dasm`
+ - `caprice32`
+ - `make`
+ - `cmake`
+
+Then run `install.sh` to install more tools locally. Makefiles are written to
+look for tools in your `PATH` as well as in the install directory from
+`install.sh`.
+
+## Manual installation (for reference only)
+
 ```
 TOOLSDIR=`pwd`/tools/
 INSTALLDIR=`pwd`/tools/install
