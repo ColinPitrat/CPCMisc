@@ -3,6 +3,15 @@
 ;; This code is free to distribute without modification
 ;; this copyright header must be retained.
 
+;; This test validates modifying a sprite magnification mid-frame, as well as
+;; modifying unused registers.
+;; It uses PRI to trigger change of magnification (register 6004) from 0,0 to
+;; 4,1 with sprite displayed at line 5.
+;; It then does the same for the 3 unused registers (6005, 6006 and 6007) at
+;; lines 40, 70 and 100.
+
+;; Behaviour on real hardware: TODO: to be tested and documented.
+
 ;; enable access to asic hardware
 ;; set it up and then lock it again
 
