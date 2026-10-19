@@ -34,3 +34,9 @@ This is used to validate that loading a program at a given address works as
 expected, even when loaded in lower RAM.
 
 For this reason, the program doesn't use any firmware routine.
+
+## 007_arnold_acid
+
+The [Arnold "Acid" test suite](https://cpcwiki.eu/forum/emulators/amstrad-cpc-'acid'-test/)
+by Kevin Thacker for testing Amstrad CPC, CPC+, KC Compact, and Aleste 520EX
+emulators, adapted to build on Linux with `pasmo` and `iDSK`.
