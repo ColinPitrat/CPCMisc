@@ -1,11 +1,13 @@
 # 007_arnold_acid - Amstrad CPC "Acid" Test Suite
 
-This directory contains the assembly test suite from Kevin Thacker's **Arnold "Acid" Test** for Amstrad CPC, CPC+, KC Compact, and Aleste 520EX emulators, as advertised on the CPCWiki forum:
+This directory contains the assembly test suite from **Arnold "Acid" Test** for Amstrad CPC, CPC+, KC Compact, and Aleste 520EX emulators, as advertised on the CPCWiki forum:
 https://cpcwiki.eu/forum/emulators/amstrad-cpc-'acid'-test/
 
 The links from this forum post are dead but I could recover the zip thanks to the wayback machine.
 
-Thanks a million to the creator of these tests which are awesome, and for the internet archive project to have preserved them!
+From the sources, the authors of these tests are Kevin Thacker, Patrik Rak and Andy Cadley.
+
+Thanks a million to the creators of these tests which are awesome, and for the internet archive project for preserving them!
 
 This is my attempt of making these tests build with my modern setup (pasmo + iDSK) on linux.
 
